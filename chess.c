@@ -66,12 +66,6 @@ void main(int argc, char** argv) {
     char* move ;
 
     //? set the flags properly after I traverse the entire command line argument (char** argv) and then I pass these flags to my handleShow() function 
-    /* 
-    int len = 0 ;//TODO: DELETE
-    len = strlen(argv[0]); //TODO: DELETE
-    printf("len = %d\n", len); //TODO: DELETE
-    printf("command line argument: %s\n\n", argv[6]) ;//TODO: DELETE 
-    */
     int j = 1 ;
     while(argv[j] != NULL)
     {
@@ -104,10 +98,8 @@ void main(int argc, char** argv) {
             //* have to add code here that gets the string "import" and move the pieces acordingly.
             //? getting the hole "import line" inputted by the user, and store it in importLine.
             strcpy(importLine, strtok(argv[++j], " ") ) ;
-            //// printf("impotLine = %s\n", importLine) ; //TODO: DELETE
             //? get the first movement or capture from importLine.
             move = strtok(importLine, ",") ;
-            //// printf("first move = %s\n", move) ; //TODO: DELETE
 
             //? go through the entire importLine movements and making the move or capture accordingly
             for (int c = 0 ; c < strlen(importLine) ; c++)
@@ -120,9 +112,6 @@ void main(int argc, char** argv) {
         }
         j++;
     }
-    printf( "w = %d\n", w) ; //TODO: DELETE
-    printf( "b = %d\n", b) ; //TODO: DELETE
-    printf( "r = %d\n", r) ; //TODO: DELETE
 
     char command[MAX_COMMAND_TOKEN_LENGTH];
     char lastCharacter;

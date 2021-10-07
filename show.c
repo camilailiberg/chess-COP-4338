@@ -15,8 +15,8 @@ void handleShow( int w, int b, int r ) {
         for (i = 7; i > -1; i--)//file labels...
             printf("%c%c", 'a' + i, i == 0 ? '\n' : '\t');
         for (i = 7; i > -1; i--)//table itself
-            for (j = 8; j > -1; j--)
-                printf("%d%c", j == 8 ? 8 - i : board[i][j - 1], j == 0 ? '\n' : '\t');
+            for (j = 9; j > -1; j--)
+                printf("%d%c", j == 9 ? 8 - i : board[i][j - 1], j == 0 ? '\n' : '\t');
     }
     else
     {
