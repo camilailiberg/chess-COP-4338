@@ -29,4 +29,4 @@ char secondPlayerName[100] ;
 char getCommandWord(char command[], int maxLength);
 void handleShow( int w, int b, int r );
 void handleCapture();
-void handleMove();
+void handleMove( int flag, char* s, char* t );

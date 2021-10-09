@@ -60,10 +60,13 @@ void main(int argc, char** argv) {
     int r = 0 ;
     int i = 0 ;
 
-    //? will hold the entire import line
-    char importLine[5000] ;
-    //? will hold the imported moves one at a time
-    char* move ;
+    //? importLine will hold the entire import line
+    //? s is the source square
+    //? t is the target square
+    char importLine[5000], s[4], t[4];
+    //? move will hold the imported moves one at a time
+    //? c is the capture square
+    char* move, c;
 
     //? set the flags properly after I traverse the entire command line argument (char** argv) and then I pass these flags to my handleShow() function 
     int j = 1 ;
@@ -92,23 +95,57 @@ void main(int argc, char** argv) {
         }
         else if ( strcmp(argv[j], "-i") == 0 )
         {
+            resetBoard();
             //? setting import flag to true
             i = 1 ;
 
             //* have to add code here that gets the string "import" and move the pieces acordingly.
             //? getting the hole "import line" inputted by the user, and store it in importLine.
             strcpy(importLine, strtok(argv[++j], " ") ) ;
-            //? get the first movement or capture from importLine.
+            printf("importLine = %s\n", importLine) ; // TODO: DELETE
+            printf("len importLine = %d\n", strlen(importLine)); // TODO: DELETE
+
+            //? get the first movement or capture from importLine and store it in move.
             move = strtok(importLine, ",") ;
+            printf("move = %s\n", move) ; // TODO: DELETE
+
+            //? if move has a capital letter
+            if( isupper( move[0] ) != 0 ) 
+            {
+                move++ ;
+            }
+            printf("move after removing capital letter: %s\n", move) ; //TODO: DELETE
+
+            //? check if it is a move or capture
+            //? if it is a capture
+            if( strstr(move, "x") != NULL)
+            {
+                printf("it is a capture\n"); //TODO: DELETE
+            } else { //? if it is a move 
+                printf("it is a move\n"); //TODO: DELETE
+                //? get the source square
+                strncpy(s, &move[0], 2);
+                s[2] = '\0' ;
+                printf("s = %s\n", s) ;//TODO: DELETE
+
+                //? get the target square
+                strncpy(t, &move[2], 2);
+                t[2] = '\0' ;
+                printf("t = %s\n", t) ;//TODO: DELETE
+
+                //? call handle move
+                
+            }
 
             //? go through the entire importLine movements and making the move or capture accordingly
-            for (int c = 0 ; c < strlen(importLine) ; c++)
-            {
-                    //? make the move or capture.
-
-                    //? get the next movement or capture from importLine.
-                    move = strtok(NULL, ",") ;
-            }	
+            // for (int c = 0 ; c < strlen(importLine) ; c++)
+            // {
+            //         //? make the move or capture.
+            //         //* get each move and call handle move
+            //         handleMove(i, move);
+            //         //? get the next movement or capture from importLine.
+            //         move = strtok(NULL, ",") ;
+            // }	
         }
         j++;
     }
@@ -133,7 +170,7 @@ void main(int argc, char** argv) {
             if (lastCharacter == '\n')//mv\n
                 printf("Too few arguments for mv command! It must be in the form of mv ai bj.\n");
             else
-                handleMove();
+                handleMove(i, s, t);
         }
         else if (!strcmp(command, "cp"))//if command == "cp"
         {

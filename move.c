@@ -89,7 +89,7 @@ static int isLegalMove(int srcI, int srcJ, int trgI, int trgJ) {
     }
     return 1;//legal move
 }
-void handleMove() {
+void handleMove( int flag, char* s, char* t ) {
     char source[MAX_COMMAND_TOKEN_LENGTH];//placeholder for argument 1 (initial square)
     char target[MAX_COMMAND_TOKEN_LENGTH];//placeholder for argument 2 (final square)
     char lastCharacter;
