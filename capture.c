@@ -75,30 +75,47 @@ static int isLegalCapture(int srcI, int srcJ, int trgI, int trgJ) {
     }
     return 1;//legal capture
 }
-void handleCapture() {
+void handleCapture( int flag, char* s, char* t ) {
     char source[MAX_COMMAND_TOKEN_LENGTH];
     char target[MAX_COMMAND_TOKEN_LENGTH];
     char lastCharacter;
     int sourceFile, sourceRank, targetFile, targetRank, sourceI, sourceJ, targetI, targetJ;
-    lastCharacter = getCommandWord(source, MAX_COMMAND_TOKEN_LENGTH);
-    if (lastCharacter == '\n') {
-        printf("Too few arguments for cp command! It must be in the form of cp ai bj.\n");
-        return;
+    
+    if( flag )
+    {
+        sourceFile = s[0];
+        targetFile = t[0];
+        sourceRank = s[1] - '0';
+        targetRank = t[1] - '0';
+        sourceI = 8 - sourceRank;
+        sourceJ = sourceFile - 'a';
+        targetI = 8 - targetRank;
+        targetJ = targetFile - 'a';
     }
-    lastCharacter = getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH);
-    if (lastCharacter != '\n') {
-        printf("Too many arguments for cp command! It must be in the form of cp ai bj.\n");
-        while (getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH) != '\n');
-        return;
+    else
+    {
+        lastCharacter = getCommandWord(source, MAX_COMMAND_TOKEN_LENGTH);
+        if (lastCharacter == '\n') {
+            printf("Too few arguments for cp command! It must be in the form of cp ai bj.\n");
+            return;
+        }
+        lastCharacter = getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH);
+        if (lastCharacter != '\n') {
+            printf("Too many arguments for cp command! It must be in the form of cp ai bj.\n");
+            while (getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH) != '\n');
+            return;
+        }
+        sourceFile = source[0];
+        targetFile = target[0];
+        sourceRank = source[1] - '0';
+        targetRank = target[1] - '0';
+        sourceI = 8 - sourceRank;
+        sourceJ = sourceFile - 'a';
+        targetI = 8 - targetRank;
+        targetJ = targetFile - 'a';
     }
-    sourceFile = source[0];
-    targetFile = target[0];
-    sourceRank = source[1] - '0';
-    targetRank = target[1] - '0';
-    sourceI = 8 - sourceRank;
-    sourceJ = sourceFile - 'a';
-    targetI = 8 - targetRank;
-    targetJ = targetFile - 'a';
+
+    //* from here it stays the same 
     if (sourceI < 0 || sourceJ < 0 || targetI < 0 || targetJ < 0
         || sourceI > 7 || sourceJ > 7 || targetI > 7 || targetJ > 7) {
         printf("invalid cp arguments\n");

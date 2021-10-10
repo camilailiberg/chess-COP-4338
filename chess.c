@@ -128,6 +128,18 @@ void main(int argc, char** argv) {
                 if( strstr(move, "x") != NULL)
                 {
                     printf("it is a capture\n"); //TODO: DELETE
+                    //? get the source square
+                    strncpy(s, &move[0], 2);
+                    s[2] = '\0' ;
+                    printf("s = %s\n", s) ;//TODO: DELETE
+
+                    //? get the target square
+                    strncpy(t, &move[3], 2);
+                    t[2] = '\0' ;
+                    printf("t = %s\n", t) ;//TODO: DELETE
+
+                    //? call handleCapture
+                    handleCapture( i, s, t );
                 } else { //? if it is a move 
                     printf("it is a move\n"); //TODO: DELETE
                     //? get the source square
@@ -159,10 +171,12 @@ void main(int argc, char** argv) {
     char command[MAX_COMMAND_TOKEN_LENGTH];
     char lastCharacter;
 
-    //* Have to check if this works!!!!!!
+    //? if an import  did not happen
     if(!i)
     {
-        resetBoard();
+        resetBoard(); //? reset board
+    }else{
+        i = 0 ; //? else if an import did happen, set import to 0 so when calling handleMove and handleCapture they work by taking user commands.
     }
 
     printf("Start the game using a mv command! Valid commands are quit, show, mv and cp.\n");
@@ -183,7 +197,7 @@ void main(int argc, char** argv) {
             if (lastCharacter == '\n')//cp\n
                 printf("Too few arguments for cp command! It must be in the form of cp ai bj.\n");
             else
-                handleCapture();
+                handleCapture( i, s, t );
         }
         else if (!strcmp(command, "show"))//if command == "show"
         {
