@@ -94,34 +94,62 @@ void handleMove( int flag, char* s, char* t ) {
     char target[MAX_COMMAND_TOKEN_LENGTH];//placeholder for argument 2 (final square)
     char lastCharacter;
     int sourceFile, sourceRank, targetFile, targetRank, sourceI, sourceJ, targetI, targetJ;
-    //source SQUARE: board[sourceI][sourceJ]
-    //target SQUARE: board[targetI][targetJ]
-    lastCharacter = getCommandWord(source, MAX_COMMAND_TOKEN_LENGTH);
-    if (lastCharacter == '\n') {
-        printf("Too few arguments for mv command! It must be in the form of mv ai bj.\n");
-        return;
+
+    printf("flag = %d\n", flag) ; //TODO: DELETE
+    if(flag)
+    {
+        printf("inside handleMove with import\n") ;
+        sourceFile = s[0];//source = "a5", sourceFile = 'a'
+        targetFile = t[0];
+        sourceRank = s[1] - '0';//source = "a5", sourceRank = 5
+        targetRank = t[1] - '0';
+
+        //board[sourceI][sourceJ]: source square...
+        //board[targetI][targetJ]: target square...
+        sourceI = 8 - sourceRank;
+        sourceJ = sourceFile - 'a';
+        targetI = 8 - targetRank;
+        targetJ = targetFile - 'a';
+        if (sourceI < 0 || sourceJ < 0 || targetI < 0 || targetJ < 0
+            || sourceI > 7 || sourceJ > 7 || targetI > 7 || targetJ > 7) {
+            printf("Invalid mv arguments\n");
+            return;
+        }
     }
-    lastCharacter = getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH);
-    if (lastCharacter != '\n') {
-        printf("Too many arguments for mv command! It must be in the form of mv ai bj.\n");
-        while (getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH) != '\n');//skip the rest of illegal command..
-        return;
+    else
+    {
+        printf("inside handleMove with NO import\n") ;
+        //source SQUARE: board[sourceI][sourceJ]
+        //target SQUARE: board[targetI][targetJ]
+        lastCharacter = getCommandWord(source, MAX_COMMAND_TOKEN_LENGTH);
+        if (lastCharacter == '\n') {
+            printf("Too few arguments for mv command! It must be in the form of mv ai bj.\n");
+            return;
+        }
+        lastCharacter = getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH);
+        if (lastCharacter != '\n') {
+            printf("Too many arguments for mv command! It must be in the form of mv ai bj.\n");
+            while (getCommandWord(target, MAX_COMMAND_TOKEN_LENGTH) != '\n');//skip the rest of illegal command..
+            return;
+        }
+        sourceFile = source[0];//source = "a5", sourceFile = 'a'
+        targetFile = target[0];
+        sourceRank = source[1] - '0';//source = "a5", sourceRank = 5
+        targetRank = target[1] - '0';
+        //board[sourceI][sourceJ]: source square...
+        //board[targetI][targetJ]: target square...
+        sourceI = 8 - sourceRank;
+        sourceJ = sourceFile - 'a';
+        targetI = 8 - targetRank;
+        targetJ = targetFile - 'a';
+        if (sourceI < 0 || sourceJ < 0 || targetI < 0 || targetJ < 0
+            || sourceI > 7 || sourceJ > 7 || targetI > 7 || targetJ > 7) {
+            printf("Invalid mv arguments\n");
+            return;
+        }
     }
-    sourceFile = source[0];//source = "a5", sourceFile = 'a'
-    targetFile = target[0];
-    sourceRank = source[1] - '0';//source = "a5", sourceRank = 5
-    targetRank = target[1] - '0';
-    //board[sourceI][sourceJ]: source square...
-    //board[targetI][targetJ]: target square...
-    sourceI = 8 - sourceRank;
-    sourceJ = sourceFile - 'a';
-    targetI = 8 - targetRank;
-    targetJ = targetFile - 'a';
-    if (sourceI < 0 || sourceJ < 0 || targetI < 0 || targetJ < 0
-        || sourceI > 7 || sourceJ > 7 || targetI > 7 || targetJ > 7) {
-        printf("Invalid mv arguments\n");
-        return;
-    }
+
+    //* From here it stays the same
     //checking the turn first
     if ((int)(board[sourceI][sourceJ] * turn) < 0) {
         printf("Turn violation, it's %s to move\n", turn == WHITE ? "white" : "black");

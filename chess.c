@@ -134,7 +134,8 @@ void main(int argc, char** argv) {
                 printf("t = %s\n", t) ;//TODO: DELETE
 
                 //? call handle move
-                
+                handleMove( i, s, t ) ;
+
             }
 
             //? go through the entire importLine movements and making the move or capture accordingly
