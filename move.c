@@ -97,7 +97,6 @@ void handleMove( int flag, char* s, char* t ) {
 
     if(flag)
     {
-        printf("inside handleMove with import\n") ;
         sourceFile = s[0];//source = "a5", sourceFile = 'a'
         targetFile = t[0];
         sourceRank = s[1] - '0';//source = "a5", sourceRank = 5
