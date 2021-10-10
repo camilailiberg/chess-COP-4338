@@ -95,7 +95,6 @@ void handleMove( int flag, char* s, char* t ) {
     char lastCharacter;
     int sourceFile, sourceRank, targetFile, targetRank, sourceI, sourceJ, targetI, targetJ;
 
-    printf("flag = %d\n", flag) ; //TODO: DELETE
     if(flag)
     {
         printf("inside handleMove with import\n") ;

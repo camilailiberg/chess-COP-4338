@@ -98,71 +98,49 @@ void main(int argc, char** argv) {
             resetBoard();
             //? setting import flag to true
             i = 1 ;
-
-            //* have to add code here that gets the string "import" and move the pieces acordingly.
+            
             //? getting the hole "import line" inputted by the user, and store it in importLine.
             strcpy(importLine, strtok(argv[++j], " ") ) ;
             int len = strlen(importLine) ;
-            printf("importLine = %s\n", importLine) ; // TODO: DELETE
-            printf("len importLine = %d\n", len); // TODO: DELETE
 
             //? get the first movement or capture from importLine and store it in move.
             move = strtok(importLine, ",") ;
-            printf("move = %s\n", move) ; // TODO: DELETE
-
-            //// printf("strlen(importLine) = %d\n", strlen(importLine)) ; // TODO: DELETE
-            // for (int c = 0 ; c < strlen(importLine) ; c++) //TODO: LO DEJO O NO?
+            
             do
             {
-                printf( "\ninside for loop, c = %d\n", c ) ; //TODO: DELETE
-
                 //? if move has a capital letter
                 if( isupper( move[0] ) != 0 ) 
                 {
                     move++ ;
                 }
-                printf("move after removing capital letter: %s\n", move) ; //TODO: DELETE
 
                 //? check if it is a move or capture
                 //? if it is a capture
                 if( strstr(move, "x") != NULL)
                 {
-                    printf("it is a capture\n"); //TODO: DELETE
                     //? get the source square
                     strncpy(s, &move[0], 2);
                     s[2] = '\0' ;
-                    printf("s = %s\n", s) ;//TODO: DELETE
 
                     //? get the target square
                     strncpy(t, &move[3], 2);
                     t[2] = '\0' ;
-                    printf("t = %s\n", t) ;//TODO: DELETE
 
                     //? call handleCapture
                     handleCapture( i, s, t );
                 } else { //? if it is a move 
-                    printf("it is a move\n"); //TODO: DELETE
                     //? get the source square
                     strncpy(s, &move[0], 2);
                     s[2] = '\0' ;
-                    printf("s = %s\n", s) ;//TODO: DELETE
 
                     //? get the target square
                     strncpy(t, &move[2], 2);
                     t[2] = '\0' ;
-                    printf("t = %s\n", t) ;//TODO: DELETE
 
                     //? call handle move
                     handleMove( i, s, t ) ;
 
                 }
-
-            //? go through the entire importLine movements and making the move or capture accordingly
-            //         //? make the move or capture.
-            //         //* get each move and call handle move
-            //         handleMove(i, move);
-            //         //? get the next movement or capture from importLine.
-                // move = strtok(NULL, ",") ; //TODO: lo dejo o no?
             } while (move = strtok(NULL, ",")) ;
         } 
         j++;
