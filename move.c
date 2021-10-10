@@ -116,7 +116,6 @@ void handleMove( int flag, char* s, char* t ) {
     }
     else
     {
-        printf("inside handleMove with NO import\n") ;
         //source SQUARE: board[sourceI][sourceJ]
         //target SQUARE: board[targetI][targetJ]
         lastCharacter = getCommandWord(source, MAX_COMMAND_TOKEN_LENGTH);
